@@ -1,0 +1,31 @@
+---
+title: "E-Commerce Platform"
+description: "A headless e-commerce storefront with product search, cart, checkout flow, and Stripe payment integration."
+tags: "Next.js, Stripe, Tailwind CSS, TypeScript"
+url: "https://github.com"
+image: https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=800&q=80
+---
+
+## Overview
+
+A modern headless storefront built on Next.js App Router with Stripe for payments and a custom CMS for product management.
+
+## Features
+
+- Product catalog with filtering, sorting, and full-text search
+- Cart with persistent storage via localStorage + server sync
+- Checkout with Stripe Elements (card + Apple/Google Pay)
+- Order confirmation emails via Resend
+- Admin dashboard for inventory and order management
+
+## Tech Stack
+
+- **Framework**: Next.js 16 (App Router)
+- **Payments**: Stripe
+- **Database**: Supabase (PostgreSQL)
+- **Email**: Resend
+- **Styling**: Tailwind CSS v4
+
+## Key Decisions
+
+I chose a headless approach to decouple the storefront from the backend, making it easy to swap CMS or payment providers later. Server Components handle product data fetching with per-request caching, keeping pages fast without a separate API layer.

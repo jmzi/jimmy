@@ -1,0 +1,32 @@
+---
+title: "Code Snippet Manager"
+description: "A personal code snippet library with syntax highlighting, tag-based search, and one-click copy — like a private GitHub Gist."
+tags: "Next.js, TypeScript, Prisma, SQLite"
+url: "https://github.com"
+image: https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=800&q=80
+---
+
+## Overview
+
+A self-hosted snippet manager for storing and retrieving reusable code snippets. Think GitHub Gist but private, fast, and fully under your control.
+
+## Features
+
+- Syntax highlighting for 100+ languages (Shiki)
+- Tag-based organisation and fuzzy search
+- One-click copy to clipboard
+- Public/private visibility per snippet
+- Markdown description support
+- Export to Gist
+
+## Tech Stack
+
+- **Framework**: Next.js (App Router)
+- **Database**: SQLite via Prisma
+- **Syntax Highlighting**: Shiki
+- **Auth**: Auth.js (next-auth)
+- **Styling**: Tailwind CSS
+
+## Design Philosophy
+
+I kept the stack as simple as possible — SQLite means zero infrastructure, a single binary database file, and instant deploys anywhere. For a personal tool, this is more than sufficient and makes backups trivially simple (`cp snippets.db backup.db`).

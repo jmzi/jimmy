@@ -1,0 +1,32 @@
+---
+title: "Weather Dashboard"
+description: "A beautiful weather app with 7-day forecasts, hourly charts, severe weather alerts, and location search."
+tags: "Next.js, TypeScript, Recharts, API"
+url: "https://github.com"
+image: https://images.unsplash.com/photo-1592210454359-9043f067919b?w=800&q=80
+---
+
+## Overview
+
+A data-rich weather dashboard that pulls from the Open-Meteo API and visualises forecasts with interactive charts.
+
+## Features
+
+- Current conditions with feels-like, humidity, UV index, wind
+- 7-day forecast with high/low temperatures
+- Hourly temperature and precipitation charts
+- Location search with autocomplete (Nominatim)
+- Saved locations with localStorage persistence
+- Severe weather alert banners
+
+## Tech Stack
+
+- **Framework**: Next.js (App Router, Server Components)
+- **Charts**: Recharts
+- **API**: Open-Meteo (free, no key required)
+- **Geocoding**: Nominatim / OpenStreetMap
+- **Styling**: Tailwind CSS
+
+## What I Learned
+
+Handling timezone-aware date formatting across server and client was trickier than expected. I ended up doing all date formatting on the client to avoid hydration mismatches, using `Intl.DateTimeFormat` with the user's detected timezone.

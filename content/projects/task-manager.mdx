@@ -1,0 +1,31 @@
+---
+title: "Task Manager App"
+description: "A full-featured task management app with drag-and-drop boards, labels, deadlines, and team collaboration."
+tags: "React, TypeScript, Node.js, PostgreSQL"
+url: "https://github.com"
+image: https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=800&q=80
+---
+
+## Overview
+
+A Kanban-style task management application built for small development teams. Inspired by Trello, but with a cleaner UI and built-in time tracking.
+
+## Features
+
+- Drag-and-drop task boards with multiple columns
+- Labels, priorities, and deadline tracking
+- Team member assignment and commenting
+- Real-time updates via WebSockets
+- Activity feed per board and task
+
+## Tech Stack
+
+- **Frontend**: React, TypeScript, Tailwind CSS
+- **Backend**: Node.js, Express, PostgreSQL
+- **Real-time**: Socket.io
+- **Auth**: JWT with refresh tokens
+- **Deployment**: Docker + Railway
+
+## Challenges
+
+The trickiest part was implementing optimistic UI updates for drag-and-drop while keeping the database in sync. I used a position field with fractional indexing to avoid reordering all records on every move.

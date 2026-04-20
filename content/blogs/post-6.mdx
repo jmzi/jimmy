@@ -1,0 +1,84 @@
+---
+title: "Optimizing Next.js App Performance"
+date: "2026-03-20"
+description: "Practical techniques I use to keep Next.js apps fast — from image optimization to bundle analysis and caching strategies."
+tags: "Next.js, Performance, Web"
+image: https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?w=800&q=80
+---
+
+Performance in a Next.js app isn't one big thing — it's a dozen small decisions that compound. Here's what I actually do in production.
+
+## Images: The Low-Hanging Fruit
+
+Most performance gains come from images. Next.js has a built-in `Image` component that handles lazy loading, format conversion (WebP/AVIF), and responsive sizing automatically.
+
+```tsx
+import Image from "next/image";
+
+<Image
+  src="/hero.jpg"
+  alt="Hero"
+  width={1200}
+  height={630}
+  priority        // Preload above-the-fold images
+  quality={85}    // 75–85 is usually indistinguishable from 100
+/>
+```
+
+Never use a raw `<img>` for anything that matters.
+
+## Analyze Your Bundle
+
+```bash
+npm install @next/bundle-analyzer
+```
+
+Then in `next.config.ts`:
+
+```ts
+const withBundleAnalyzer = require("@next/bundle-analyzer")({
+  enabled: process.env.ANALYZE === "true",
+});
+export default withBundleAnalyzer(nextConfig);
+```
+
+Run `ANALYZE=true npm run build`. You'll immediately spot what's bloating your client bundle. Common culprits: date libraries, rich-text editors, icon packages.
+
+## Dynamic Imports
+
+Move heavy client-only components out of the initial bundle:
+
+```tsx
+import dynamic from "next/dynamic";
+
+const HeavyChart = dynamic(() => import("@/components/HeavyChart"), {
+  loading: () => <div className="h-64 animate-pulse bg-zinc-100 rounded-xl" />,
+});
+```
+
+## Caching
+
+In App Router, `fetch` is extended with caching options:
+
+```ts
+// Cache indefinitely (CDN / ISR)
+const data = await fetch(url, { cache: "force-cache" });
+
+// Revalidate every 60 seconds
+const data = await fetch(url, { next: { revalidate: 60 } });
+
+// Always fresh (no cache)
+const data = await fetch(url, { cache: "no-store" });
+```
+
+For database queries that aren't `fetch`-based, use `unstable_cache` from `next/cache`.
+
+## The Lighthouse Feedback Loop
+
+Run Lighthouse on every significant change. The four things that hurt scores most consistently:
+1. Render-blocking resources
+2. Large JavaScript bundles
+3. Unoptimized images
+4. Missing font `display: swap`
+
+Fix those and you're most of the way there.

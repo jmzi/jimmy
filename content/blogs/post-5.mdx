@@ -1,0 +1,77 @@
+---
+title: "CSS Grid vs Flexbox: A Practical Decision Guide"
+date: "2026-04-01"
+description: "Stop guessing which layout tool to reach for. Here's a clear framework for choosing between CSS Grid and Flexbox."
+tags: "CSS, UI/UX"
+image: https://images.unsplash.com/photo-1561070791-2526d30994b5?w=800&q=80
+---
+
+The debate is usually framed as "Grid vs Flexbox" but that framing misses the point. They solve different problems, and knowing which to reach for is just pattern recognition.
+
+## The One-Liner Rule
+
+**Flexbox** = one dimension (row *or* column).
+**Grid** = two dimensions (rows *and* columns).
+
+If you're laying things out in a single line — a navbar, a row of buttons, a stacked card — reach for Flexbox. If you need items to align across both axes — a photo gallery, a dashboard layout, a card grid — reach for Grid.
+
+## Flexbox Sweet Spots
+
+```css
+/* Navigation */
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Centering anything */
+.centered {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Stacking with gap */
+.stack {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+```
+
+## Grid Sweet Spots
+
+```css
+/* Responsive card grid */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+/* Full page layout */
+.layout {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  min-height: 100vh;
+}
+```
+
+## They Work Together
+
+The best layouts use both. Grid handles the macro layout (page structure, card grids), Flexbox handles the micro layout (content inside each card).
+
+```tsx
+<div className="grid grid-cols-3 gap-6">       {/* Grid: card layout */}
+  <div className="flex flex-col gap-2">         {/* Flexbox: card internals */}
+    <h2>Title</h2>
+    <p>Description</p>
+    <button className="mt-auto">CTA</button>   {/* Push to bottom */}
+  </div>
+</div>
+```
+
+## When You're Unsure
+
+Default to Flexbox for unknowns — it's more forgiving. Switch to Grid when you catch yourself fighting Flexbox to align things across multiple rows.

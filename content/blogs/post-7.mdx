@@ -1,0 +1,73 @@
+---
+title: "My Developer Workflow in 2026"
+date: "2026-03-10"
+description: "The tools, shortcuts, and habits that make up my daily development workflow — what stuck after years of trying different setups."
+tags: "Tooling, Productivity"
+image: https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=800&q=80
+---
+
+I've tried a lot of setups over the years. This is what's actually stuck.
+
+## Editor
+
+**VS Code** with a minimal extension list. More extensions = slower startup and more noise. The ones I keep:
+
+- **ESLint + Prettier** — non-negotiable
+- **GitLens** — inline blame and history
+- **Error Lens** — errors inline, not just in the problems panel
+- **Tailwind CSS IntelliSense** — class autocomplete
+
+I turn off most built-in features I don't use (breadcrumbs, minimap, status bar noise).
+
+## Terminal
+
+**Warp** as my terminal. The AI autocomplete for commands is genuinely useful, and the block-based output makes it easy to scroll through build logs.
+
+Shell: **zsh** with a minimal config. I resisted switching from bash for years and it was worth it eventually.
+
+## Git Workflow
+
+I use a simple trunk-based approach for personal projects:
+
+```bash
+# Feature branch
+git checkout -b feat/my-feature
+
+# Commit often with clear messages
+git commit -m "feat: add project pagination"
+
+# Squash before merging
+git rebase -i main
+```
+
+For commit messages I loosely follow [Conventional Commits](https://www.conventionalcommits.org) — `feat:`, `fix:`, `chore:`, `docs:`. It makes the log actually readable.
+
+## Package Manager
+
+**pnpm** for everything. Faster installs, less disk usage, strict by default so you catch dependency issues early.
+
+## Local Dev
+
+I keep a `Makefile` in most projects with shortcuts:
+
+```makefile
+dev:
+  pnpm dev
+
+lint:
+  pnpm lint && pnpm tsc --noEmit
+
+clean:
+  rm -rf .next node_modules && pnpm install
+```
+
+`make lint` before every PR. Simple rule that catches most issues.
+
+## What I've Stopped Doing
+
+- Setting up Storybook for small projects
+- Over-configuring ESLint with 50 rules
+- Using monorepos for solo projects
+- Chasing the perfect setup instead of shipping
+
+The setup that ships software is the right setup.

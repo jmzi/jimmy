@@ -1,0 +1,109 @@
+---
+title: "JavaScript Closures, Finally Explained"
+date: "2026-03-01"
+description: "Closures aren't magic — they're just functions that remember their scope. Here's how they work and where you actually use them."
+tags: "JavaScript, Fundamentals"
+image: https://images.unsplash.com/photo-1555952517-2e8e729e0b44?w=800&q=80
+---
+
+Closures come up in every JavaScript interview and confuse developers for years. They're simpler than they sound.
+
+## The Simple Definition
+
+A closure is a function that **remembers the variables from the scope where it was created**, even after that scope has finished executing.
+
+```js
+function makeCounter() {
+  let count = 0;
+
+  return function () {
+    count += 1;
+    return count;
+  };
+}
+
+const counter = makeCounter();
+counter(); // 1
+counter(); // 2
+counter(); // 3
+```
+
+`makeCounter` runs and returns. But the inner function still has access to `count` — that's a closure.
+
+## Why This Works
+
+When a function is created, JavaScript attaches a reference to its surrounding scope (called the **lexical environment**). As long as the function exists, that scope stays alive in memory.
+
+## Practical Uses
+
+**Private state:**
+
+```js
+function createUser(name) {
+  let loginCount = 0;
+
+  return {
+    login() {
+      loginCount++;
+      console.log(`${name} logged in (${loginCount} times)`);
+    },
+    getLoginCount() {
+      return loginCount;
+    },
+  };
+}
+
+const user = createUser("Alex");
+user.login(); // Alex logged in (1 times)
+user.getLoginCount(); // 1
+// loginCount is not directly accessible from outside
+```
+
+**Event handlers with context:**
+
+```js
+function setupButton(label) {
+  let clickCount = 0;
+
+  document.querySelector("#btn").addEventListener("click", () => {
+    clickCount++;
+    console.log(`${label} clicked ${clickCount} times`);
+  });
+}
+```
+
+**Factory functions:**
+
+```js
+const multiply = (factor) => (number) => number * factor;
+
+const double = multiply(2);
+const triple = multiply(3);
+
+double(5); // 10
+triple(5); // 15
+```
+
+## The Classic Gotcha
+
+The infamous loop bug:
+
+```js
+// Broken
+for (var i = 0; i < 3; i++) {
+  setTimeout(() => console.log(i), 100);
+}
+// Logs: 3, 3, 3
+
+// Fixed with let (block scope)
+for (let i = 0; i < 3; i++) {
+  setTimeout(() => console.log(i), 100);
+}
+// Logs: 0, 1, 2
+```
+
+`var` is function-scoped, so all callbacks share the same `i`. `let` creates a new binding per iteration.
+
+## The Takeaway
+
+Every time you write a function inside another function, you're creating a closure. Understanding scope is 90% of understanding closures.

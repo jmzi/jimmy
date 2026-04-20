@@ -1,0 +1,33 @@
+---
+title: "Real-Time Chat App"
+description: "A Slack-inspired messaging app with channels, direct messages, threads, and file sharing — built with WebSockets."
+tags: "React, Node.js, Socket.io, MongoDB"
+url: "https://github.com"
+image: https://images.unsplash.com/photo-1577563908411-5077b6dc7624?w=800&q=80
+---
+
+## Overview
+
+A real-time messaging application supporting workspace channels, direct messages, and threaded replies — built to explore WebSocket architecture at scale.
+
+## Features
+
+- Workspaces with public and private channels
+- Direct messages and group DMs
+- Threaded replies on any message
+- File and image uploads (S3)
+- Online presence indicators
+- Message search with full-text indexing
+- Emoji reactions
+
+## Tech Stack
+
+- **Frontend**: React, Zustand, Tailwind CSS
+- **Backend**: Node.js, Socket.io, Express
+- **Database**: MongoDB with Mongoose
+- **File Storage**: AWS S3
+- **Auth**: OAuth 2.0 (Google, GitHub)
+
+## Architecture Notes
+
+Messages are stored in MongoDB with a compound index on `(channelId, createdAt)` for efficient pagination. Socket rooms map 1:1 to channels, with a separate presence layer using Redis pub/sub to broadcast join/leave events across multiple server instances.

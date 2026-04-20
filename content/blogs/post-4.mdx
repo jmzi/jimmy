@@ -1,0 +1,63 @@
+---
+title: "React Server Components: What Actually Changed"
+date: "2026-04-10"
+description: "React Server Components aren't just a performance trick — they fundamentally change how you think about data fetching and component composition."
+tags: "React, Next.js, Performance"
+image: https://images.unsplash.com/photo-1633356122544-f134324a6cee?w=800&q=80
+---
+
+React Server Components (RSC) landed in Next.js App Router and quietly rewired how I think about building UIs. Here's my honest take after building with them for a while.
+
+## The Old Mental Model
+
+Before RSC, everything was a client component. Data fetching meant `useEffect`, `useState`, or a library like SWR. The server sent HTML or JSON, and React took over from there.
+
+## The New Mental Model
+
+Server Components run *only* on the server. They can:
+
+- Read directly from a database or filesystem
+- Use environment variables safely
+- Import large server-only dependencies without affecting bundle size
+
+```tsx
+// This runs on the server — no useEffect needed
+export default async function UserProfile({ id }: { id: string }) {
+  const user = await db.query(`SELECT * FROM users WHERE id = $1`, [id]);
+
+  return (
+    <div>
+      <h1>{user.name}</h1>
+      <p>{user.email}</p>
+    </div>
+  );
+}
+```
+
+No API route. No loading state. No hydration overhead.
+
+## What You Can't Do in Server Components
+
+- Use React hooks (`useState`, `useEffect`, etc.)
+- Attach browser event handlers (`onClick`, `onChange`)
+- Access browser APIs (`window`, `localStorage`)
+
+For those, you still reach for Client Components — just mark them `"use client"` at the top.
+
+## The Composition Pattern
+
+The real power is composing them together:
+
+```tsx
+// Server Component (fetches data)
+export default async function Page() {
+  const data = await getData();
+  return <InteractiveWidget data={data} />; // Client Component
+}
+```
+
+The server does the heavy lifting; the client handles interactivity.
+
+## My Honest Take
+
+The mental shift is real, but worth it. Pages load faster, bundle sizes are smaller, and data fetching is dramatically simpler. The tricky part is knowing the boundary — but that gets intuitive fast.

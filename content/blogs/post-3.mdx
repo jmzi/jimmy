@@ -1,0 +1,68 @@
+---
+title: "Understanding TypeScript Generics"
+date: "2026-04-15"
+description: "A practical guide to TypeScript generics — what they are, why you need them, and how to write them without getting lost."
+tags: "TypeScript, JavaScript"
+image: https://images.unsplash.com/photo-1516116216624-53e697fedbea?w=800&q=80
+---
+
+Generics are one of those TypeScript features that look intimidating until they click. Once they do, you'll wonder how you ever lived without them.
+
+## What Is a Generic?
+
+A generic is a way to write reusable code that works over a variety of types rather than a single one. Think of it as a type-level function — you pass in a type, you get a type back.
+
+```ts
+function identity<T>(value: T): T {
+  return value;
+}
+
+identity<string>("hello"); // string
+identity<number>(42);      // number
+```
+
+The `T` is a type parameter. You can name it anything, but `T` (for "Type") is conventional.
+
+## A Real Example
+
+Say you're writing a wrapper around `fetch`:
+
+```ts
+async function fetchData<T>(url: string): Promise<T> {
+  const res = await fetch(url);
+  return res.json() as T;
+}
+
+const user = await fetchData<{ name: string; email: string }>("/api/user");
+```
+
+Now `user` is fully typed without any manual casting outside the function.
+
+## Constraints
+
+You can restrict what types are allowed:
+
+```ts
+function getLength<T extends { length: number }>(value: T): number {
+  return value.length;
+}
+
+getLength("hello"); // 5
+getLength([1, 2, 3]); // 3
+getLength(42); // Error — number has no length
+```
+
+## Default Type Parameters
+
+TypeScript 2.3+ supports default types:
+
+```ts
+type ApiResponse<T = unknown> = {
+  data: T;
+  status: number;
+};
+```
+
+## Takeaway
+
+Start small — use generics when you notice yourself duplicating function signatures that only differ by type. You don't need to generic-ify everything from day one.
