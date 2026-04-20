@@ -102,7 +102,7 @@ export default function About() {
               <div className="relative">
                 <div className="w-72 h-72 sm:w-96 sm:h-96 rounded-3xl overflow-hidden ring-4 ring-violet-200 dark:ring-violet-800/50 shadow-2xl">
                   <img
-                    src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&q=80&fit=crop&crop=face"
+                    src="https://res.cloudinary.com/dnr4zo1ov/image/upload/v1776670527/jmz_wunyoh.jpg"
                     alt="jmz"
                     className="w-full h-full object-cover"
                   />
