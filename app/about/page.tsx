@@ -69,7 +69,7 @@ export default function About() {
                 Hi, I&apos;m jmz
               </h1>
               <p className="text-lg text-zinc-600 dark:text-zinc-400 leading-relaxed mb-6">
-                A full-stack developer based in San Francisco, CA. I build
+                A full-stack developer based in Philippines I build
                 fast, accessible web applications that people actually enjoy
                 using — from idea to deployment.
               </p>
