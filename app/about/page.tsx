@@ -86,7 +86,7 @@ export default function About() {
                   Get In Touch
                 </Link>
                 <a
-                  href="/alex-carter-resume.pdf"
+                  href="/jmz-resume.pdf"
                   className="px-6 py-3 rounded-full border border-zinc-300 dark:border-zinc-700 text-zinc-700 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-zinc-800 font-semibold text-sm transition-colors inline-flex items-center gap-2"
                 >
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
