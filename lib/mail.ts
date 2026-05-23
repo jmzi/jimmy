@@ -1,32 +1,31 @@
+import nodemailer from "nodemailer";
+
 export type MailPayload = {
   name: string;
   email: string;
+  subject?: string;
   message: string;
 };
 
-/**
- * Send a contact form email.
- * Wire up to your preferred email provider (Resend, SendGrid, Nodemailer, etc.)
- */
 export async function sendMail(payload: MailPayload): Promise<void> {
-  const { name, email, message } = payload;
+  const { name, email, subject, message } = payload;
 
-  // Example: Resend
-  // const res = await fetch("https://api.resend.com/emails", {
-  //   method: "POST",
-  //   headers: {
-  //     Authorization: `Bearer ${process.env.RESEND_API_KEY}`,
-  //     "Content-Type": "application/json",
-  //   },
-  //   body: JSON.stringify({
-  //     from: "onboarding@resend.dev",
-  //     to: process.env.CONTACT_EMAIL,
-  //     subject: `New message from ${name}`,
-  //     text: `From: ${email}\n\n${message}`,
-  //   }),
-  // });
-  // if (!res.ok) throw new Error("Failed to send email");
+  const transporter = nodemailer.createTransport({
+    host: "smtp.gmail.com",
+    port: 587,
+    secure: false,
+    auth: {
+      user: process.env.SMTP_USER,
+      pass: process.env.SMTP_PASS,
+    },
+  });
 
-  console.log("sendMail called:", { name, email, message });
-  throw new Error("Configure an email provider in lib/mail.ts");
+  await transporter.sendMail({
+    from: `"${name}" <${process.env.SMTP_USER}>`,
+    replyTo: email,
+    to: process.env.CONTACT_EMAIL,
+    subject: subject ? `[Contact] ${subject}` : `[Contact] New message from ${name}`,
+    text: `Name: ${name}\nEmail: ${email}\n\n${message}`,
+    html: `<p><strong>Name:</strong> ${name}</p><p><strong>Email:</strong> <a href="mailto:${email}">${email}</a></p><hr/><p>${message.replace(/\n/g, "<br/>")}</p>`,
+  });
 }
