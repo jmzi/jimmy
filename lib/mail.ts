@@ -24,7 +24,7 @@ export async function sendMail(payload: MailPayload): Promise<void> {
     from: `"${name}" <${process.env.SMTP_USER}>`,
     replyTo: email,
     to: process.env.CONTACT_EMAIL,
-    subject: subject ? `[Contact] ${subject}` : `[Contact] New message from ${name}`,
+    subject: subject ? `Contact Form: ${subject}` : `Contact Form: New message from ${name}`,
     text: `Name: ${name}\nEmail: ${email}\n\n${message}`,
     html: `<p><strong>Name:</strong> ${name}</p><p><strong>Email:</strong> <a href="mailto:${email}">${email}</a></p><hr/><p>${message.replace(/\n/g, "<br/>")}</p>`,
   });
