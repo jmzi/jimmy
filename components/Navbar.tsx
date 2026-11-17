@@ -2,14 +2,10 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import ThemeToggle from "./ThemeToggle";
+import dynamic from "next/dynamic";
+import { NAV_LINKS, SITE_NAME } from "@/lib/site";
 
-const NAV_LINKS = [
-  { href: "/about", label: "About" },
-  { href: "/portfolio", label: "Portfolio" },
-  { href: "/blogs", label: "Blog" },
-  { href: "/contact", label: "Contact" },
-];
+const ThemeToggle = dynamic(() => import("./ThemeToggle"), { ssr: false });
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
@@ -34,7 +30,7 @@ export default function Navbar() {
           >
             <path d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
           </svg>
-          jmz
+          {SITE_NAME}
         </Link>
 
         {/* Desktop nav */}

@@ -21,8 +21,11 @@ export default async function Portfolio({
       {/* Header */}
       <div className="mb-12 animate-fade-in-up">
         <h1 className="text-4xl sm:text-5xl font-bold tracking-tight mb-3">Portfolio</h1>
-        <p className="text-zinc-500 dark:text-zinc-400 text-lg">
-          A collection of things I&apos;ve designed and built.
+        <p className="text-zinc-500 dark:text-zinc-400 text-lg max-w-2xl">
+          The projects below are demo / practice builds that show general web
+          development capability. Most of my real-world experience is
+          managing and maintaining client WordPress websites, which
+          aren&apos;t shown here out of client confidentiality.
         </p>
       </div>
 

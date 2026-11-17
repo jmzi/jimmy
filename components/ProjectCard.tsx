@@ -44,6 +44,9 @@ export default function ProjectCard({ project }: { project: ProjectMeta }) {
           <div className={`w-full h-full bg-gradient-to-br ${gradient}`} />
         )}
         <div className="absolute inset-0 bg-black/0 group-hover:bg-black/5 dark:group-hover:bg-white/5 transition-colors duration-300" />
+        <span className="absolute top-3 left-3 text-xs font-semibold px-2.5 py-1 rounded-full bg-black/60 text-white backdrop-blur-sm">
+          Demo Project
+        </span>
       </div>
 
       {/* Content */}

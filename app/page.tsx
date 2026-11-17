@@ -1,121 +1,161 @@
 import Link from "next/link";
-import { getProjects, getPosts } from "@/lib/posts";
+import { getProjects } from "@/lib/posts";
 import ProjectCard from "@/components/ProjectCard";
-import BlogCard from "@/components/BlogCard";
+import ServiceIcon from "@/components/ServiceIcon";
+import { SERVICES } from "@/lib/services";
 
-const TECH = [
-  { name: "React", color: "bg-sky-100 text-sky-700 dark:bg-sky-950/60 dark:text-sky-300" },
-  { name: "Next.js", color: "bg-zinc-100 text-zinc-700 dark:bg-zinc-800 dark:text-zinc-300" },
-  { name: "TypeScript", color: "bg-blue-100 text-blue-700 dark:bg-blue-950/60 dark:text-blue-300" },
-  { name: "Tailwind CSS", color: "bg-cyan-100 text-cyan-700 dark:bg-cyan-950/60 dark:text-cyan-300" },
-  { name: "Node.js", color: "bg-green-100 text-green-700 dark:bg-green-950/60 dark:text-green-300" },
-  { name: "PostgreSQL", color: "bg-indigo-100 text-indigo-700 dark:bg-indigo-950/60 dark:text-indigo-300" },
-  { name: "MongoDB", color: "bg-emerald-100 text-emerald-700 dark:bg-emerald-950/60 dark:text-emerald-300" },
-  { name: "Docker", color: "bg-sky-100 text-sky-700 dark:bg-sky-950/60 dark:text-sky-300" },
-  { name: "GraphQL", color: "bg-pink-100 text-pink-700 dark:bg-pink-950/60 dark:text-pink-300" },
-  { name: "Git", color: "bg-orange-100 text-orange-700 dark:bg-orange-950/60 dark:text-orange-300" },
-  { name: "Figma", color: "bg-purple-100 text-purple-700 dark:bg-purple-950/60 dark:text-purple-300" },
-  { name: "Vercel", color: "bg-zinc-100 text-zinc-700 dark:bg-zinc-800 dark:text-zinc-300" },
+const WHY_WORK_WITH_ME = [
+  "Hands-on experience managing and maintaining 20+ WordPress websites",
+  "Practical, day-to-day experience with Elementor and Divi page builders",
+  "Comfortable improving and maintaining existing websites, not just building new ones",
+  "Understands the business side of a website, not only the technical side",
+  "Reliable ongoing support after your site goes live",
+  "Added capability in CRM setup and business process automation",
+];
+
+const WORKFLOW = [
+  {
+    step: "01",
+    title: "Discovery",
+    description: "We talk through your business, your goals, and what you need your website to do.",
+  },
+  {
+    step: "02",
+    title: "Planning",
+    description: "I outline the right approach and scope — whether that's a new build, a redesign, or a fix.",
+  },
+  {
+    step: "03",
+    title: "Development",
+    description: "I build or improve the website, keeping you updated as the work progresses.",
+  },
+  {
+    step: "04",
+    title: "Review",
+    description: "We test functionality, responsiveness, and performance together before anything goes live.",
+  },
+  {
+    step: "05",
+    title: "Delivery",
+    description: "The site launches, and I stay available for support, updates, and maintenance.",
+  },
+];
+
+const FAQS = [
+  {
+    question: "Do you only build new websites, or can you work with my existing site?",
+    answer:
+      "Both. A large part of my work is improving, fixing, and maintaining existing WordPress sites — not only building from scratch.",
+  },
+  {
+    question: "What platforms do you build with?",
+    answer:
+      "Primarily WordPress, using Elementor or Divi depending on what fits the project best.",
+  },
+  {
+    question: "Do you offer ongoing maintenance after the site is launched?",
+    answer:
+      "Yes. Website maintenance and support is one of my core services — plugin and theme updates, backups, troubleshooting, and content changes.",
+  },
+  {
+    question: "Can you help connect my website to a CRM?",
+    answer:
+      "Yes. I have experience setting up CRM systems like Salesmate, along with form and email integrations to automate lead follow-up.",
+  },
+  {
+    question: "How do we get started?",
+    answer:
+      "Reach out through the contact form with a short description of your project. I'll follow up to discuss goals, scope, and next steps.",
+  },
 ];
 
 export default async function Home() {
-  const [allProjects, allPosts] = await Promise.all([getProjects(), getPosts()]);
+  const allProjects = await getProjects();
   const featured = allProjects.slice(0, 3);
-  const latest = allPosts.slice(0, 3);
 
   return (
     <>
-      {/* ── Hero ─────────────────────────────────────────────── */}
+      {/* ── Hero ─────────────────────────────────────── */}
       <section className="relative overflow-hidden border-b border-zinc-200 dark:border-zinc-800">
-        <div className="max-w-[1200px] mx-auto px-6 py-24 lg:py-36">
-          <div className="grid lg:grid-cols-2 gap-16 items-center">
-            {/* Text */}
-            <div className="animate-fade-in-up">
-              <div className="inline-flex items-center gap-2 text-sm font-medium text-violet-600 dark:text-violet-400 bg-violet-50 dark:bg-violet-950/50 border border-violet-200 dark:border-violet-800/60 px-3.5 py-1.5 rounded-full mb-8">
-                <span className="w-2 h-2 bg-violet-500 rounded-full animate-pulse" />
-                Available for work
-              </div>
-
-              <h1 className="text-5xl lg:text-6xl font-bold tracking-tight leading-tight mb-6">
-                Crafting{" "}
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-violet-600 to-cyan-500 dark:from-violet-400 dark:to-cyan-400">
-                  Digital
-                </span>
-                <br />
-                Experiences
-              </h1>
-
-              <p className="text-lg text-zinc-600 dark:text-zinc-400 leading-relaxed mb-10 max-w-lg">
-                Full-stack developer with 5+ years building fast, accessible web
-                applications. I turn ideas into polished products using React,
-                Next.js, and TypeScript.
-              </p>
-
-              <div className="flex flex-wrap gap-4">
-                <Link
-                  href="/portfolio"
-                  className="px-6 py-3 rounded-full bg-violet-600 hover:bg-violet-500 text-white font-semibold text-sm transition-colors duration-150 shadow-lg shadow-violet-500/20"
-                >
-                  View My Work
-                </Link>
-                <Link
-                  href="/contact"
-                  className="px-6 py-3 rounded-full border border-zinc-300 dark:border-zinc-700 text-zinc-700 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-zinc-800 font-semibold text-sm transition-colors duration-150"
-                >
-                  Get In Touch
-                </Link>
-              </div>
+        <div className="max-w-[1200px] mx-auto px-6 py-24 lg:py-32">
+          <div className="max-w-3xl animate-fade-in-up">
+            <div className="inline-flex items-center gap-2 text-sm font-medium text-violet-600 dark:text-violet-400 bg-violet-50 dark:bg-violet-950/50 border border-violet-200 dark:border-violet-800/60 px-3.5 py-1.5 rounded-full mb-8">
+              <span className="w-2 h-2 bg-violet-500 rounded-full animate-pulse" />
+              Available for new projects
             </div>
 
-            {/* Hero image */}
-            <div className="animate-fade-in-up relative" style={{ animationDelay: "150ms" }}>
-              <div className="relative rounded-2xl overflow-hidden aspect-[4/3] shadow-2xl ring-1 ring-zinc-200 dark:ring-zinc-800">
-                <img
-                  src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=900&q=80&fit=crop"
-                  alt="Developer workspace"
-                  className="w-full h-full object-cover"
-                />
-                <div className="absolute inset-0 bg-gradient-to-tr from-violet-900/20 to-transparent" />
-              </div>
-              {/* Floating badge */}
-              <div className="absolute -bottom-4 -left-4 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-700 rounded-xl px-4 py-3 shadow-lg flex items-center gap-3">
-                <div className="w-9 h-9 rounded-full bg-violet-100 dark:bg-violet-950/60 flex items-center justify-center">
-                  <svg className="w-5 h-5 text-violet-600 dark:text-violet-400" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
-                  </svg>
-                </div>
-                <div>
-                  <p className="text-xs text-zinc-500 dark:text-zinc-400">Projects completed</p>
-                  <p className="font-bold text-zinc-900 dark:text-zinc-50 text-sm">50+</p>
-                </div>
-              </div>
+            <h1 className="text-5xl lg:text-6xl font-bold tracking-tight leading-tight mb-6">
+              Websites That Help Businesses Grow.
+            </h1>
+
+            <p className="text-lg text-zinc-600 dark:text-zinc-400 leading-relaxed mb-10 max-w-xl">
+              I help businesses build, improve, and maintain professional
+              websites that look great, perform smoothly, and support their
+              business goals — on WordPress, with ongoing support when you
+              need it.
+            </p>
+
+            <div className="flex flex-wrap gap-4">
+              <Link
+                href="/portfolio"
+                className="px-6 py-3 rounded-full bg-violet-600 hover:bg-violet-500 text-white font-semibold text-sm transition-colors duration-150 shadow-lg shadow-violet-500/20"
+              >
+                View My Work
+              </Link>
+              <Link
+                href="/contact"
+                className="px-6 py-3 rounded-full border border-zinc-300 dark:border-zinc-700 text-zinc-700 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-zinc-800 font-semibold text-sm transition-colors duration-150"
+              >
+                Let&apos;s Work Together
+              </Link>
             </div>
           </div>
+        </div>
+      </section>
 
-          {/* Stats */}
-          <div
-            className="grid grid-cols-2 sm:grid-cols-4 gap-8 mt-20 pt-16 border-t border-zinc-200 dark:border-zinc-800 animate-fade-in-up"
-            style={{ animationDelay: "250ms" }}
-          >
-            {[
-              { value: "5+", label: "Years of Experience" },
-              { value: "50+", label: "Projects Completed" },
-              { value: "20+", label: "Happy Clients" },
-              { value: "100%", label: "Passion for Code" },
-            ].map(({ value, label }) => (
-              <div key={label} className="text-center">
-                <div className="text-3xl font-bold text-zinc-900 dark:text-zinc-50 mb-1">{value}</div>
-                <div className="text-sm text-zinc-500 dark:text-zinc-400">{label}</div>
+      {/* ── Services ─────────────────────────────────── */}
+      <section className="py-24 border-b border-zinc-200 dark:border-zinc-800">
+        <div className="max-w-[1200px] mx-auto px-6">
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-12">
+            <div>
+              <p className="text-sm font-semibold text-violet-600 dark:text-violet-400 uppercase tracking-widest mb-2">
+                Services
+              </p>
+              <h2 className="text-3xl sm:text-4xl font-bold tracking-tight">How I Can Help</h2>
+            </div>
+            <Link
+              href="/services"
+              className="inline-flex items-center gap-1.5 text-sm font-medium text-zinc-600 dark:text-zinc-400 hover:text-violet-600 dark:hover:text-violet-400 transition-colors"
+            >
+              View all services
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+              </svg>
+            </Link>
+          </div>
+
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {SERVICES.map(({ slug, icon, title, summary }, i) => (
+              <div
+                key={slug}
+                className="animate-fade-in-up p-6 rounded-2xl bg-zinc-50 dark:bg-zinc-900/60 border border-zinc-200 dark:border-zinc-800 hover:border-violet-300 dark:hover:border-violet-800/60 transition-colors duration-200"
+                style={{ animationDelay: `${i * 80}ms` }}
+              >
+                <div className="w-11 h-11 rounded-xl bg-violet-100 dark:bg-violet-950/60 flex items-center justify-center text-violet-600 dark:text-violet-400 mb-4">
+                  <ServiceIcon icon={icon} />
+                </div>
+                <h3 className="font-semibold text-lg mb-2">{title}</h3>
+                <p className="text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed">{summary}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* ── Featured Work ─────────────────────────────────────── */}
-      <section className="py-24">
+      {/* ── Featured Work ────────────────────────────── */}
+      <section className="py-24 border-b border-zinc-200 dark:border-zinc-800">
         <div className="max-w-[1200px] mx-auto px-6">
-          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-12">
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-4">
             <div>
               <p className="text-sm font-semibold text-violet-600 dark:text-violet-400 uppercase tracking-widest mb-2">
                 Portfolio
@@ -132,6 +172,12 @@ export default async function Home() {
               </svg>
             </Link>
           </div>
+          <p className="text-sm text-zinc-500 dark:text-zinc-400 mb-12 max-w-2xl">
+            These are demo / practice projects that showcase web development
+            capability. Most of my real-world experience is managing and
+            maintaining client WordPress sites, which aren&apos;t shown here
+            out of client confidentiality.
+          </p>
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {featured.map((project, i) => (
@@ -143,66 +189,91 @@ export default async function Home() {
         </div>
       </section>
 
-      {/* ── Tech Stack ────────────────────────────────────────── */}
-      <section className="py-20 border-y border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900/30">
+      {/* ── Why Work With Me ────────────────────────── */}
+      <section className="py-24 border-b border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900/30">
         <div className="max-w-[1200px] mx-auto px-6">
-          <p className="text-center text-sm font-semibold text-zinc-400 dark:text-zinc-500 uppercase tracking-widest mb-8">
-            Technologies I Work With
-          </p>
-          <div className="flex flex-wrap gap-3 justify-center">
-            {TECH.map(({ name, color }) => (
-              <span
-                key={name}
-                className={`px-4 py-1.5 rounded-full text-sm font-medium ${color}`}
+          <div className="mb-12">
+            <p className="text-sm font-semibold text-violet-600 dark:text-violet-400 uppercase tracking-widest mb-2">
+              Why Work With Me
+            </p>
+            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight">What You Get</h2>
+          </div>
+
+          <div className="grid sm:grid-cols-2 gap-5">
+            {WHY_WORK_WITH_ME.map((point, i) => (
+              <div
+                key={i}
+                className="animate-fade-in-up flex items-start gap-3 p-5 rounded-xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800"
+                style={{ animationDelay: `${i * 60}ms` }}
               >
-                {name}
-              </span>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ── Latest Blog Posts ─────────────────────────────────── */}
-      <section className="py-24">
-        <div className="max-w-[1200px] mx-auto px-6">
-          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-12">
-            <div>
-              <p className="text-sm font-semibold text-violet-600 dark:text-violet-400 uppercase tracking-widest mb-2">
-                Blog
-              </p>
-              <h2 className="text-3xl sm:text-4xl font-bold tracking-tight">From the Blog</h2>
-            </div>
-            <Link
-              href="/blogs"
-              className="inline-flex items-center gap-1.5 text-sm font-medium text-zinc-600 dark:text-zinc-400 hover:text-violet-600 dark:hover:text-violet-400 transition-colors"
-            >
-              All articles
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-              </svg>
-            </Link>
-          </div>
-
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {latest.map((post, i) => (
-              <div key={post.slug} className="animate-fade-in-up" style={{ animationDelay: `${i * 80}ms` }}>
-                <BlogCard post={post} />
+                <svg className="w-5 h-5 shrink-0 mt-0.5 text-violet-600 dark:text-violet-400" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+                  <polyline points="20 6 9 17 4 12" />
+                </svg>
+                <p className="text-sm text-zinc-700 dark:text-zinc-300 leading-relaxed">{point}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* ── CTA Banner ────────────────────────────────────────── */}
-      <section className="py-24 border-t border-zinc-200 dark:border-zinc-800">
+      {/* ── Workflow ─────────────────────────────────── */}
+      <section className="py-24 border-b border-zinc-200 dark:border-zinc-800">
+        <div className="max-w-[1200px] mx-auto px-6">
+          <div className="mb-12">
+            <p className="text-sm font-semibold text-violet-600 dark:text-violet-400 uppercase tracking-widest mb-2">
+              My Workflow
+            </p>
+            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight">How We&apos;ll Work Together</h2>
+          </div>
+
+          <div className="grid sm:grid-cols-2 lg:grid-cols-5 gap-6">
+            {WORKFLOW.map(({ step, title, description }, i) => (
+              <div key={step} className="animate-fade-in-up" style={{ animationDelay: `${i * 80}ms` }}>
+                <div className="text-sm font-bold text-violet-600 dark:text-violet-400 mb-2">{step}</div>
+                <h3 className="font-semibold text-lg mb-2">{title}</h3>
+                <p className="text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed">{description}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── FAQ ──────────────────────────────────────── */}
+      <section className="py-24 border-b border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900/30">
+        <div className="max-w-[1200px] mx-auto px-6">
+          <div className="mb-12 max-w-2xl">
+            <p className="text-sm font-semibold text-violet-600 dark:text-violet-400 uppercase tracking-widest mb-2">
+              FAQ
+            </p>
+            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight">Common Questions</h2>
+          </div>
+
+          <div className="max-w-3xl flex flex-col gap-4">
+            {FAQS.map(({ question, answer }, i) => (
+              <div
+                key={i}
+                className="animate-fade-in-up p-6 rounded-xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800"
+                style={{ animationDelay: `${i * 60}ms` }}
+              >
+                <h3 className="font-semibold text-zinc-900 dark:text-zinc-50 mb-2">{question}</h3>
+                <p className="text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed">{answer}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── CTA Banner ───────────────────────────────── */}
+      <section className="py-24">
         <div className="max-w-[1200px] mx-auto px-6 text-center">
           <div className="max-w-2xl mx-auto">
             <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-4">
-              Let&apos;s Work Together
+              Have a Project in Mind? Let&apos;s Build Something Great.
             </h2>
             <p className="text-zinc-600 dark:text-zinc-400 text-lg mb-10 leading-relaxed">
-              I&apos;m available for freelance projects and full-time opportunities.
-              If you have an idea or a role you&apos;d like to discuss, I&apos;d love to hear from you.
+              Whether you need a new website, a redesign, ongoing maintenance,
+              or help automating your lead follow-up — let&apos;s talk about
+              what your business needs.
             </p>
             <div className="flex flex-wrap gap-4 justify-center">
               <Link
@@ -211,17 +282,6 @@ export default async function Home() {
               >
                 Start a Conversation
               </Link>
-              <a
-                href="https://github.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="px-7 py-3.5 rounded-full border border-zinc-300 dark:border-zinc-700 text-zinc-700 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-zinc-800 font-semibold transition-colors duration-150 inline-flex items-center gap-2"
-              >
-                <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0 1 12 6.844a9.59 9.59 0 0 1 2.504.337c1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0 0 22 12.017C22 6.484 17.522 2 12 2z" />
-                </svg>
-                View GitHub
-              </a>
             </div>
           </div>
         </div>
