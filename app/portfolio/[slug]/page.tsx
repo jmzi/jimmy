@@ -75,6 +75,9 @@ export default async function ProjectPage({
 
       {/* Title */}
       <AnimateIn delay={140}>
+        <span className="inline-block text-xs font-semibold px-2.5 py-1 rounded-full bg-zinc-900 dark:bg-zinc-100 text-white dark:text-zinc-900 mb-4">
+          Demo Project
+        </span>
         <h1 className="text-4xl sm:text-5xl font-bold tracking-tight mb-4">
           {project.title}
         </h1>

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { SITE_NAME } from "@/lib/site";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -16,11 +17,18 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: {
-    default: "jmz — Full-Stack Developer",
-    template: "%s | jmz",
+    default: `${SITE_NAME} — Freelance Web Developer | WordPress Specialist`,
+    template: `%s | ${SITE_NAME}`,
   },
   description:
-    "Full-stack developer specializing in React, Next.js, and TypeScript. Building fast, accessible web experiences.",
+    "Freelance web developer helping small businesses build, redesign, and maintain professional WordPress websites — plus CRM and business automation support.",
+  openGraph: {
+    title: `${SITE_NAME} — Freelance Web Developer | WordPress Specialist`,
+    description:
+      "Websites that help businesses grow. WordPress development, redesigns, maintenance, and CRM automation.",
+    siteName: SITE_NAME,
+    type: "website",
+  },
 };
 
 // Runs before paint to prevent flash of wrong theme. Defaults to dark.
